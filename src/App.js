@@ -50,17 +50,28 @@ function App() {
         {tareas.map((tarea, index) => (
           <li
             key={index}
-            onClick={() => toggleTarea(index)}
+            onClick={() => toggleTarea(index) }
             style={{
               padding: '10px',
               marginBottom: '8px',
               background: '#f0f0f0',
               cursor: 'pointer',
-              textDecoration: tarea.completada ? 'line-through' : 'none',
-              color: tarea.completada ? '#999' : '#000'
+              display: 'flex',
+              justifyContent: 'space-between',
             }}
           >
-            {tarea.texto}
+            <span style={{
+              textDecoration: tarea.completada ? 'line-through' : 'none',
+              color: tarea.completada ? '#999' : '#000'
+            }}>
+              {tarea.texto}
+            </span>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            eliminarTarea(index);
+          }}>
+            Eliminar
+          </button>
           </li>
         ))}
       </ul>
