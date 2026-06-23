@@ -40,8 +40,8 @@ function App() {
     setTareas(copia);
   };
 
-  const eliminarTarea = (index) => {
-    fetch("http://localhost:8000/tareas/"+index, {
+  const eliminarTarea = (id) => {
+    fetch("http://localhost:8000/tareas/"+id, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
     })
@@ -89,7 +89,7 @@ function App() {
             </span>
           <button onClick={(e) => {
             e.stopPropagation();
-            eliminarTarea(index);
+            eliminarTarea(tarea.id);
           }}>
             Eliminar
           </button>
