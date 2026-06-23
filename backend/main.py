@@ -28,6 +28,6 @@ def añadir_tarea(tarea: Tarea):
     return tareas
 
 @app.delete("/tareas/{index}")
-def eliminar_tarea(index):
+def eliminar_tarea(index: int):
     del tareas[index]
     return tareas

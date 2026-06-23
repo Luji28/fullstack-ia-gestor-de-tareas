@@ -7,17 +7,31 @@ Cambios futuros a tener en cuenta:
 - separar el css a un fichero aparte
 - El uso de "index" está desaconsejado en su mayoría. Aquí es simple y funciona pero mejor crear un id único a cada tarea.
 */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
   const [tareas, setTareas] = useState([]);
   const [nuevaTarea, setNuevaTarea] = useState('');
 
+  useEffect(() => {
+    fetch("http://localhost:8000/tareas")
+        .then(res => res.json())
+        .then(data => setTareas(data));
+  }, []);
+
   const añadirTarea = () => {
     if (nuevaTarea.trim() === '') return;
-    setTareas([...tareas, { texto: nuevaTarea, completada: false }]);
-    setNuevaTarea('');
+    fetch("http://localhost:8000/tareas", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texto: nuevaTarea, completada: false })
+    })
+    .then(res => res.json())
+    .then(data => {
+        setTareas(data);
+        setNuevaTarea('');
+    });
   };
 
   const toggleTarea = (index) => {
@@ -27,7 +41,14 @@ function App() {
   };
 
   const eliminarTarea = (index) => {
-    setTareas(tareas.filter((_, i) => i !== index));
+    fetch("http://localhost:8000/tareas/"+index, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    })
+    .then(res => res.json())
+    .then(data => {
+        setTareas(data);
+    });
   };
 
   return (
