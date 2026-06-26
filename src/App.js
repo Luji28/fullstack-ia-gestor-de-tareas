@@ -61,32 +61,29 @@ function App() {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '40px auto', fontFamily: 'sans-serif' }}>
+    <div className='app'>
       <h1>Gestor de Tareas</h1>
 
-      <div style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
+      <div className='anyadir'>
         <input
           type="text"
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && !cargando && añadirTarea()}
           placeholder="Escribe una tarea..."
-          style={{ flex: 1, padding: '8px' }}
+          className='txtanyadir'
         />
         <button onClick={añadirTarea} disabled={cargando}>Añadir</button>
       </div>
 
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className='lista'>
         {tareas.map((tarea) => (
           <li
             key={tarea.id}
             onClick={() => toggleTarea(tarea.id) }
             className="tarea"
           >
-            <span style={{
-              textDecoration: tarea.completada ? 'line-through' : 'none',
-              color: tarea.completada ? '#999' : '#000'
-            }}>
+            <span className={`tarea-texto ${tarea.completada ? 'tarea-completada' : ''}`}>
               {tarea.texto}
             </span>
           <button onClick={(e) => {

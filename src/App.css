@@ -6,3 +6,34 @@
   display: flex;
   justify-content: space-between;
 }
+
+.app {
+  max-width: 600px;
+  margin: 40px auto; 
+  font-family: sans-serif; 
+}
+
+.anyadir {
+  display: flex; 
+  gap: 8px; 
+  margin-bottom: 20px; 
+}
+
+.txtanyadir {
+  flex: 1;
+  padding: 8px;
+}
+
+.lista {
+  list-style: none; 
+  padding: 0;
+}
+
+.tarea-texto {
+  color: #000;
+}
+
+.tarea-completada {
+  text-decoration: line-through;
+  color: #999;
+}
