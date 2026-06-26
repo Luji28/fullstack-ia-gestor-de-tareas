@@ -1,7 +1,11 @@
+body {
+  background-color: #381054;
+}
+
 .tarea {
   padding: 10px;
   margin-bottom: 8px;
-  background: #f0f0f0;
+  background: #ae6fdbb5;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -11,12 +15,19 @@
   max-width: 600px;
   margin: 40px auto; 
   font-family: sans-serif; 
+  color: #ffffff
 }
 
 .anyadir {
   display: flex; 
   gap: 8px; 
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
+}
+
+.botonanyadir {
+  background-color: #d1cccc;
+  width: 70px;
+  border-color: #ac64dfb5;
 }
 
 .txtanyadir {
@@ -30,10 +41,16 @@
 }
 
 .tarea-texto {
-  color: #000;
+  color: #ffffff;
 }
 
 .tarea-completada {
   text-decoration: line-through;
-  color: #999;
+  color: #c8bebe;
+}
+
+.botoneliminar {
+  background-color: #d1cccc;
+  width: 70px;
+  border-color: #381054;
 }

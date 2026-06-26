@@ -73,7 +73,7 @@ function App() {
           placeholder="Escribe una tarea..."
           className='txtanyadir'
         />
-        <button onClick={añadirTarea} disabled={cargando}>Añadir</button>
+        <button onClick={añadirTarea} disabled={cargando} className='botonanyadir'>Añadir</button>
       </div>
 
       <ul className='lista'>
@@ -89,7 +89,8 @@ function App() {
           <button onClick={(e) => {
             e.stopPropagation();
             eliminarTarea(tarea.id);
-          }}>
+          }}
+          className='botoneliminar'>
             Eliminar
           </button>
           </li>
