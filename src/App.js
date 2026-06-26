@@ -13,6 +13,7 @@ import './App.css';
 function App() {
   const [tareas, setTareas] = useState([]);
   const [nuevaTarea, setNuevaTarea] = useState('');
+  const [cargando, setCargando] = useState(false); // Estado para impedir que se creen varias tareas iguales mientras se crea una
 
   useEffect(() => {
     fetch("http://localhost:8000/tareas")
@@ -22,6 +23,7 @@ function App() {
 
   const añadirTarea = () => {
     if (nuevaTarea.trim() === '') return;
+    setCargando(true)
     fetch("http://localhost:8000/tareas", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,6 +33,7 @@ function App() {
     .then(data => {
         setTareas(data);
         setNuevaTarea('');
+      setCargando(false)
     });
   };
 
@@ -66,11 +69,11 @@ function App() {
           type="text"
           value={nuevaTarea}
           onChange={(e) => setNuevaTarea(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && añadirTarea()}
+          onKeyDown={(e) => e.key === 'Enter' && !cargando && añadirTarea()}
           placeholder="Escribe una tarea..."
           style={{ flex: 1, padding: '8px' }}
         />
-        <button onClick={añadirTarea}>Añadir</button>
+        <button onClick={añadirTarea} disabled={cargando}>Añadir</button>
       </div>
 
       <ul style={{ listStyle: 'none', padding: 0 }}>
