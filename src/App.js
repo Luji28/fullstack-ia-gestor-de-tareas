@@ -81,14 +81,7 @@ function App() {
           <li
             key={tarea.id}
             onClick={() => toggleTarea(tarea.id) }
-            style={{
-              padding: '10px',
-              marginBottom: '8px',
-              background: '#f0f0f0',
-              cursor: 'pointer',
-              display: 'flex',
-              justifyContent: 'space-between',
-            }}
+            className="tarea"
           >
             <span style={{
               textDecoration: tarea.completada ? 'line-through' : 'none',
