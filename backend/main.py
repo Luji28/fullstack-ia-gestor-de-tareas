@@ -34,7 +34,7 @@ def get_conn():
 def obtener_tareas():
     conn = get_conn()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, texto, completada FROM tareas")
+    cursor.execute("SELECT id, texto, completada FROM tareas ORDER BY id DESC") # El order by es para que no se vayan desordenando las tareas al hacer toggle
     filas = cursor.fetchall()
     conn.close()
     return [{"id": f[0], "texto": f[1], "completada": f[2]} for f in filas]
@@ -54,6 +54,15 @@ def eliminar_tarea(id: int):
     conn = get_conn()
     cursor = conn.cursor()
     cursor.execute("DELETE FROM tareas WHERE id = %s", (id,))
+    conn.commit()
+    conn.close()
+    return obtener_tareas()
+
+@app.put("/tareas/{id}")
+def toggle_tarea(id: int):
+    conn = get_conn()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE tareas SET completada = NOT completada WHERE id = %s", (id,))
     conn.commit()
     conn.close()
     return obtener_tareas()

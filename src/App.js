@@ -5,8 +5,8 @@ Descripción: Front del proyecto "gestor de tareas"
 
 Cambios futuros a tener en cuenta: 
 - separar el css a un fichero aparte
-- El uso de "index" está desaconsejado en su mayoría. Aquí es simple y funciona pero mejor crear un id único a cada tarea.
 */
+
 import { useState, useEffect } from 'react';
 import './App.css';
 
@@ -34,11 +34,17 @@ function App() {
     });
   };
 
-  const toggleTarea = (index) => {
-    const copia = [...tareas];
-    copia[index].completada = !copia[index].completada;
-    setTareas(copia);
+  const toggleTarea = (id) => {
+    fetch("http://localhost:8000/tareas/"+id, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+    })
+    .then(res => res.json())
+    .then(data => {
+        setTareas(data);
+    });
   };
+
 
   const eliminarTarea = (id) => {
     fetch("http://localhost:8000/tareas/"+id, {
@@ -68,10 +74,10 @@ function App() {
       </div>
 
       <ul style={{ listStyle: 'none', padding: 0 }}>
-        {tareas.map((tarea, index) => (
+        {tareas.map((tarea) => (
           <li
-            key={index}
-            onClick={() => toggleTarea(index) }
+            key={tarea.id}
+            onClick={() => toggleTarea(tarea.id) }
             style={{
               padding: '10px',
               marginBottom: '8px',
